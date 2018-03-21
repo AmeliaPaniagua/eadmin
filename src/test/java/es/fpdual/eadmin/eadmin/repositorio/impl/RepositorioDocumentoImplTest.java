@@ -1,13 +1,14 @@
-package es.fpdual.eadmin.eadmin.modelo;
-
-import static org.junit.Assert.assertEquals;
+package es.fpdual.eadmin.eadmin.repositorio.impl;
 
 import java.util.Date;
 
 import org.junit.Before;
-import org.junit.Test;
 
-public class ExpedienteTest {
+import es.fpdual.eadmin.eadmin.modelo.Documento;
+import es.fpdual.eadmin.eadmin.modelo.DocumentoContable;
+import es.fpdual.eadmin.eadmin.modelo.EstadoDocumento;
+
+public class RepositorioDocumentoImplTest {
 
 private static final Date FECHA_CREACION = new Date();
 	
@@ -16,17 +17,24 @@ private static final Date FECHA_CREACION = new Date();
 	private static final Boolean DOCUMENTO_PUBLICO = true;
 	
 	private Documento documento;
-		
+	private RepositorioDocumentoImpl repositorio;
+	
 	@Before
 	public void inicializarCadaTest() {
+		
 		documento = new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
+		
+		repositorio = new RepositorioDocumentoImpl();
+		
+		
+	}	
+	
+	public void probarAltaDocumento() {
+		
+		repositorio.altaDocumento(documento);
+		
+		
 	}
 	
-
-	@Test
-	public void deberiaComprobarGetters() {
-					
-		assertEquals(DOCUMENTO_PUBLICO, documento.getPublico());
-		assertEquals(EstadoDocumento.ACTIVO, documento.getEstado());
-	}
+	
 }

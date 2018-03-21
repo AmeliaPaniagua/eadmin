@@ -24,8 +24,8 @@ private static final Date FECHA_CREACION = new Date();
 	@Before
 	public void inicializarCadaTest() {
 		documentoContable = new DocumentoContable(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO, IMPORTE_DOCUMENTO_CONTABLE, DNI_INTERESADO);
-	}
-	
+		
+	}	
 
 	@Test
 	public void deberiaComprobarGetters() {
