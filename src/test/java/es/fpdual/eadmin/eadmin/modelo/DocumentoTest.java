@@ -37,7 +37,7 @@ public class DocumentoTest {
 	
 	
 	@Test
-	public void deberiaDevolverTrueSiTienenIgualCodigo() {
+	public void deberiaDevolverTrueSiTienenIgualCodigoss() {
 		
 		final Documento documento2 = new Documento(CODIGO_DOCUMENTO, null, null, null, null);
 		
