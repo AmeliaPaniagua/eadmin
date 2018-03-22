@@ -3,41 +3,24 @@ package es.fpdual.eadmin.eadmin.modelo;
 import java.util.Date;
 import java.util.List;
 
-public class Expediente {
+public class Expediente extends ModeloBaseAdministracionElectronica {
 
-	private Integer codigo;
-	private String nombre;
-	private Date fechaCreacion;
 	private Date fechaArchivo;
 	private Boolean publico;
 	private EstadoExpediente estado;
 	
-	private List <Documento>documentos;
+	private List <Documento> documentos;
 
 	public Expediente(Integer codigo, String nombre, Date fechaCreacion, Date fechaArchivo, Boolean publico,
 			EstadoExpediente estado, List documentos) {
-		super();
-		this.codigo = codigo;
-		this.nombre = nombre;
-		this.fechaCreacion = fechaCreacion;
+		super(codigo, nombre, fechaCreacion);
+
 		this.fechaArchivo = fechaArchivo;
 		this.publico = publico;
 		this.estado = estado;
 		this.documentos = documentos;
 	}
-
 	
-	public Integer getCodigo() {
-		return codigo;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
 
 	public Date getFechaArchivo() {
 		return fechaArchivo;
@@ -55,6 +38,7 @@ public class Expediente {
 		return documentos;
 	}
 	
+	@Override
 	public int hashCode() {
 		return codigo.hashCode()
 				+ nombre.hashCode()

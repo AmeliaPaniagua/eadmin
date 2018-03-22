@@ -19,6 +19,7 @@ public class DocumentoTest {
 	
 	private Documento documento;
 		
+	
 	@Before
 	public void inicializarCadaTest() {
 		documento = new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
@@ -28,48 +29,12 @@ public class DocumentoTest {
 	@Test
 	public void deberiaComprobarGetters() {
 					
-		assertEquals(CODIGO_DOCUMENTO, documento.getCodigo());
-		assertEquals(NOMBRE_DOCUMENTO, documento.getNombre());
-		assertEquals(FECHA_CREACION, documento.getFechaCreacion());
 		assertEquals(DOCUMENTO_PUBLICO, documento.getPublico());
 		assertEquals(EstadoDocumento.ACTIVO, documento.getEstado());
 	}
 	
 	
-	@Test
-	public void deberiaDevolverTrueSiTienenIgualCodigo() {
-		
-		final Documento documento2 = new Documento(CODIGO_DOCUMENTO, null, null, null, null);
-		
-		final Boolean resultado = documento2.equals(documento);
-		
-		assertTrue(resultado);
-	}
 	
-	
-	
-	@Test
-	public void deberiaDevolverFalseSiNoTienenIgualCodigo() {
-		
-		final Documento documento2 = new Documento(5, null, null, null, null);
-		
-		final Boolean resultado = documento2.equals(documento);
-		
-		assertFalse(resultado);
-	}
-	
-	
-	@Test
-	public void deberiaDevolverFalseSiNoEsUnDocumento() {
-		final Boolean resultado = documento.equals(new Date());
-		assertFalse(resultado);
-	}
-	
-	@Test
-	public void deberiaDevolverHasCodeDelCodigo() {
-		final int resultado = documento.hashCode();
-		assertEquals(CODIGO_DOCUMENTO.hashCode(), resultado);
-	}
 	
 }
 
