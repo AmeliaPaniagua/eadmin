@@ -49,6 +49,7 @@ public class ModeloBaseAdministracionElectronicaTest {
 		final Boolean resultado = documento.equals(documento2);
 		
 		assertTrue(resultado);
+		
 	}
 	
 	

@@ -3,6 +3,7 @@ package es.fpdual.eadmin.eadmin.repositorio.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +22,8 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	}
 	
 
+	
+	
 	@Override
 	public void altaDocumento(Documento documento) {
 		
@@ -44,18 +47,29 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	@Override
 	public void eliminarDocumento(Integer codigo) {
 		
-		Documento documentoEncontrado = null;
+		//Documento documentoEncontrado = null;
 		
-		for (int i = 0; i < documentos.size(); i++) {
-			if (documentos.get(i).getCodigo().equals(codigo)) {
-				documentoEncontrado = documentos.get(i);
-				break;
-			}
-		}
+//		for (int i = 0; i < documentos.size(); i++) {
+//			if (documentos.get(i).getCodigo().equals(codigo)) {
+//				documentoEncontrado = documentos.get(i);
+//				break;
+//			}
+//		} 
 		
-		if (Objects.nonNull(documentoEncontrado)) { // comprueba si el objeto es nulo o no
+		//Comentamos el for porque según Java 8 es mejor buscar en un array utilizando stream
+		
+		
+		Optional<Documento> documentoEncontrado =
+		documentos.stream().filter(d ->tieneIgualCodigo(d, codigo)).findFirst();
+		if (documentoEncontrado.isPresent()) { // comprueba si el objeto es nulo o no
 			documentos.remove(documentoEncontrado);
-		}
+		}		
+		
+	}
+	
+	protected boolean tieneIgualCodigo(Documento documento, Integer codigo) {
+		
+		return documento.getCodigo().equals(codigo);
 		
 	}
 
