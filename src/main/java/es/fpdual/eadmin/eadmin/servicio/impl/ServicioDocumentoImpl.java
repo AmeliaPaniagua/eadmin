@@ -34,8 +34,7 @@ public class ServicioDocumentoImpl implements ServicioDocumento {
 	public void modificarDocumento (Documento documento) {
 		
 		repositorioDocumento.modificarDocumento(documento);
-		
-		
+	
 	}
 
 	

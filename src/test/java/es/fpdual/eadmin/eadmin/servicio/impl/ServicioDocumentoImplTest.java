@@ -1,14 +1,12 @@
 package es.fpdual.eadmin.eadmin.servicio.impl;
 
+import org.junit.*;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 import java.util.Date;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import es.fpdual.eadmin.eadmin.modelo.Documento;
 import es.fpdual.eadmin.eadmin.modelo.EstadoDocumento;
@@ -24,7 +22,7 @@ public class ServicioDocumentoImplTest {
 	
 	private ServicioDocumento servicioDocumento;
 	
-	private static final Documento DOCUMENTO = mock(Documento.class);
+	private Documento DOCUMENTO = mock(Documento.class);
 	
 	private final RepositorioDocumento repositorioDocumento = mock(RepositorioDocumento.class);
 	
@@ -38,17 +36,16 @@ public class ServicioDocumentoImplTest {
 	@Test
 	public void deberiaAlmacenarUnDocumento() {
 		
-		//entrando a mockito con mis valores de mentira		
+		//entrenando a mockito con mis valores de mentira		
 		when(DOCUMENTO.getCodigo()).thenReturn(CODIGO_DOCUMENTO);
 		when(DOCUMENTO.getNombre()).thenReturn(NOMBRE_DOCUMENTO);
 		when(DOCUMENTO.getFechaCreacion()).thenReturn(new Date(1/1/2018));
 		when(DOCUMENTO.getFechaUltimaActualizacion()).thenReturn(new Date(1/2/2018));
 		
-		
 		final Documento resultado = this.servicioDocumento.altaDocumento(DOCUMENTO); 
 		//any() -> se le pasa cualquier documento
-		this.servicioDocumento.altaDocumento(any());		 
-		verify(this.repositorioDocumento).altaDocumento(DOCUMENTO);
+			 
+		verify(this.repositorioDocumento).altaDocumento(any());
 		
 		assertEquals(resultado.getCodigo(), DOCUMENTO.getCodigo());
 		assertEquals(resultado.getNombre(), DOCUMENTO.getNombre());
@@ -59,7 +56,6 @@ public class ServicioDocumentoImplTest {
 	@Test
 	public void deberiaModificarUnDocumento() {
 		
-		//any() -> se le pasa cualquier documento
 		this.servicioDocumento.modificarDocumento(DOCUMENTO);
 		verify(this.repositorioDocumento).modificarDocumento(DOCUMENTO);
 		 
