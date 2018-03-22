@@ -11,9 +11,9 @@ public class Expediente extends ModeloBaseAdministracionElectronica {
 	
 	private List <Documento> documentos;
 
-	public Expediente(Integer codigo, String nombre, Date fechaCreacion, Date fechaArchivo, Boolean publico,
+	public Expediente(Integer codigo, String nombre, Date fechaCreacion, Date fechaUltimaActualizacion, Date fechaArchivo, Boolean publico,
 			EstadoExpediente estado, List documentos) {
-		super(codigo, nombre, fechaCreacion);
+		super(codigo, nombre, fechaCreacion, fechaUltimaActualizacion);
 
 		this.fechaArchivo = fechaArchivo;
 		this.publico = publico;
@@ -43,6 +43,7 @@ public class Expediente extends ModeloBaseAdministracionElectronica {
 		return codigo.hashCode()
 				+ nombre.hashCode()
 				+ fechaCreacion.hashCode()
+				+ fechaUltimaActualizacion.hashCode()
 				+ fechaArchivo.hashCode()
 				+ publico.hashCode()
 				+ estado.hashCode(); 
@@ -55,6 +56,7 @@ public class Expediente extends ModeloBaseAdministracionElectronica {
 			return codigo.equals(((Expediente) obj).getCodigo())
 				&& nombre.equals(((Expediente) obj).getNombre())
 				&& fechaCreacion.equals(((Expediente) obj).getFechaCreacion())
+				&& fechaUltimaActualizacion.equals(((Expediente) obj).getFechaUltimaActualizacion())
 				&& fechaArchivo.equals(((Expediente) obj).getFechaArchivo())
 				&& publico.equals(((Expediente) obj).getPublico())
 				&& estado.equals(((Expediente) obj).getEstado());

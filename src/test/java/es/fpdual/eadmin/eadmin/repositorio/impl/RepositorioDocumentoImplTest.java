@@ -14,16 +14,16 @@ import es.fpdual.eadmin.eadmin.repositorio.RepositorioDocumento;
 
 public class RepositorioDocumentoImplTest {
 
-private static final Date FECHA_CREACION = new Date();
+	private static final Date FECHA_CREACION = new Date();
+	private static final Date FECHA_ULTIMA_MODIFICACION = new Date();
 	
 	private static final Integer CODIGO_DOCUMENTO = 1;
 	private static final String NOMBRE_DOCUMENTO ="nombre";
 	private static final Boolean DOCUMENTO_PUBLICO = true;
 	
-	private static final Documento DOC = new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
+	private static final Documento DOCUMENTO = new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, FECHA_ULTIMA_MODIFICACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
 	
 
-	
 	private RepositorioDocumentoImpl repositorio;
 	
 	@Before
@@ -36,40 +36,39 @@ private static final Date FECHA_CREACION = new Date();
 	@Test
 	public void probarAltaDocumento() {
 		
-		repositorio.altaDocumento(DOC);
-		assertSame(DOC, repositorio.getDocumentos().get(0));                              
-		
+		repositorio.altaDocumento(DOCUMENTO);
+		assertSame(DOCUMENTO, repositorio.getDocumentos().get(0));                              
 		
 	}
 	
 	@Test
 	public void probarDocumentoExiste() {
 		
-		repositorio.altaDocumento(DOC);		
-		final Boolean resultado = repositorio.getDocumentos().contains(DOC);
+		repositorio.altaDocumento(DOCUMENTO);		
+		final Boolean resultado = repositorio.getDocumentos().contains(DOCUMENTO);
 		
 		assertTrue(resultado);		
-		
+		//sin terminar 
 	}
 	
 	
 	
 	@Test
 	public void probarModificarDocumento() {
+//		
+//		Documento doc2 = new Documento(CODIGO_DOCUMENTO, "nombre2", FECHA_CREACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
+//		
+//		repositorio.modificarDocumento(doc2);
 		
-		Documento doc2 = new Documento(CODIGO_DOCUMENTO, "nombre2", FECHA_CREACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
-		
-		repositorio.modificarDocumento(doc2);
-		
-		
+		//sin terminar
 		
 	}
 	
 	@Test
 	public void deberiaEliminarDocumento() {
 		
-		this.repositorio.getDocumentos().add(DOC);
-		this.repositorio.eliminarDocumento(DOC.getCodigo());
+		this.repositorio.getDocumentos().add(DOCUMENTO);
+		this.repositorio.eliminarDocumento(DOCUMENTO.getCodigo());
 		assertTrue(this.repositorio.getDocumentos().isEmpty());
 		
 	}
@@ -77,7 +76,7 @@ private static final Date FECHA_CREACION = new Date();
 	@Test
 	public void deberiaEliminarDocumentoQueNoEstaEnLista() {
 		
-		this.repositorio.eliminarDocumento(DOC.getCodigo());
+		this.repositorio.eliminarDocumento(DOCUMENTO.getCodigo());
 		assertTrue(this.repositorio.getDocumentos().isEmpty());
 		
 	}
