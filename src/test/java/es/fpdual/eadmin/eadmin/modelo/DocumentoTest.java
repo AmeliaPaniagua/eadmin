@@ -12,6 +12,7 @@ import org.junit.Test;
 public class DocumentoTest {
 	
 	private static final Date FECHA_CREACION = new Date();
+	private static final Date FECHA_ULTIMA_MODIFICACION = new Date();
 	
 	private static final Integer CODIGO_DOCUMENTO = 1;
 	private static final String NOMBRE_DOCUMENTO ="nombre";
@@ -22,7 +23,7 @@ public class DocumentoTest {
 	
 	@Before
 	public void inicializarCadaTest() {
-		documento = new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
+		documento = new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, FECHA_ULTIMA_MODIFICACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
 	}
 	
 

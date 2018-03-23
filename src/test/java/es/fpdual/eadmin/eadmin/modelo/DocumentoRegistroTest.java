@@ -9,7 +9,8 @@ import org.junit.Test;
 
 public class DocumentoRegistroTest {
 		
-	private static final Date FECHA_CREACION = new Date();
+		private static final Date FECHA_CREACION = new Date();
+		private static final Date FECHA_ULTIMA_MODIFICACION = new Date();
 		
 		private static final Integer CODIGO_DOCUMENTO = 1;
 		private static final String NOMBRE_DOCUMENTO ="nombre";
@@ -22,7 +23,7 @@ public class DocumentoRegistroTest {
 		
 		@Before
 		public void inicializarCadaTest() {
-			documentoRegistro = new DocumentoRegistro(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, DOCUMENTO_PUBLICO, 
+			documentoRegistro = new DocumentoRegistro(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_ULTIMA_MODIFICACION, FECHA_CREACION, DOCUMENTO_PUBLICO, 
 					EstadoDocumento.ACTIVO, DNI_INTERESADO, CODIGO_REGISTRO);
 		}
 		

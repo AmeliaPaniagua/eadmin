@@ -13,15 +13,13 @@ import es.fpdual.eadmin.eadmin.repositorio.RepositorioDocumento;
 @Repository
 public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
-	private List <Documento> documentos = new ArrayList<>();
+	private final List <Documento> documentos = new ArrayList<>();
 	
 
-	
+	//getter
 	public List<Documento> getDocumentos() {
 		return documentos;
 	}
-	
-
 	
 	
 	@Override
@@ -37,8 +35,8 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	@Override
 	public void modificarDocumento(Documento documento) {
 		
-		if (documentos.contains(documento)) {
-			throw new IllegalArgumentException("El documento ya existe");
+		if (!documentos.contains(documento)) {
+			throw new IllegalArgumentException("El documento que quiere modificar no existe");
 		}
 		documentos.set(documentos.indexOf(documento), documento);
 		
