@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import es.fpdual.eadmin.eadmin.modelo.Documento;
 import es.fpdual.eadmin.eadmin.modelo.Expediente;
 import es.fpdual.eadmin.eadmin.repositorio.RepositorioExpediente;
-
+@Repository
 public class RepositorioExpedienteImpl implements RepositorioExpediente{
 
 	private final List <Expediente> expedientes = new ArrayList<>();
