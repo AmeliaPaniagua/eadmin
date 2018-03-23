@@ -1,11 +1,14 @@
 package es.fpdual.eadmin.eadmin.servicio.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.fpdual.eadmin.eadmin.modelo.Documento;
 import es.fpdual.eadmin.eadmin.modelo.Expediente;
-import es.fpdual.eadmin.eadmin.repositorio.RepositorioDocumento;
+import es.fpdual.eadmin.eadmin.modelo.builder.DocumentoBuilder;
+import es.fpdual.eadmin.eadmin.modelo.builder.ExpedienteBuilder;
 import es.fpdual.eadmin.eadmin.repositorio.RepositorioExpediente;
 import es.fpdual.eadmin.eadmin.servicio.ServicioExpediente;
 
@@ -22,20 +25,25 @@ public class ServicioExpedienteImpl implements ServicioExpediente {
 	@Override
 	public Expediente altaExpediente(Expediente expediente) {
 		
+		final Expediente expedienteModificado = obtenerExpedienteConFechaCorrecta(expediente);
 		
+		repositorioExpediente.altaExpediente(expedienteModificado);
 		
-		return null;
+		return expedienteModificado;
 	}
 
 	@Override
 	public Expediente modificarExpediente(Expediente expediente) {
 		
-		return null;
+		repositorioExpediente.modificarExpediente(expediente);
+		
+		return expediente;
 	}
 
 	@Override
 	public void eliminarExpediente(Integer codigoExpediente) {
 		
+		repositorioExpediente.eliminarExpediente(codigoExpediente);
 		
 	}
 
@@ -51,4 +59,15 @@ public class ServicioExpedienteImpl implements ServicioExpediente {
 		return null;
 	}
 
+	protected Expediente obtenerExpedienteConFechaCorrecta(Expediente expediente) {
+		
+		return new ExpedienteBuilder().clonar(expediente).
+				conFechaCreacion(dameFechaActual()).
+				construir();
+	}
+	
+	protected Date dameFechaActual() {
+		
+		return new Date();//Devuelve la fecha actual
+	}
 }

@@ -9,7 +9,7 @@ public class Expediente extends ModeloBaseAdministracionElectronica {
 	private final Boolean publico;
 	private final EstadoExpediente estado;
 	
-	private List <Documento> documentos;
+	private List <Documento> listaDocumentos;
 
 	public Expediente(Integer codigo, String nombre, Date fechaCreacion, Date fechaUltimaActualizacion, Date fechaArchivo, Boolean publico,
 			EstadoExpediente estado, List documentos) {
@@ -18,7 +18,7 @@ public class Expediente extends ModeloBaseAdministracionElectronica {
 		this.fechaArchivo = fechaArchivo;
 		this.publico = publico;
 		this.estado = estado;
-		this.documentos = documentos;
+		this.listaDocumentos = documentos;
 	}
 	
 
@@ -34,10 +34,16 @@ public class Expediente extends ModeloBaseAdministracionElectronica {
 		return estado;
 	}
 
-	public List getDocumentos() {
-		return documentos;
+	public List<Documento> getListaDocumentos() {
+		return listaDocumentos;
 	}
 	
+	
+	public void setDocumentos(List<Documento> documentos) {
+		this.listaDocumentos = listaDocumentos;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return codigo.hashCode()
