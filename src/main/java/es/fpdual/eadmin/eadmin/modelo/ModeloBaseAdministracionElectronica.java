@@ -4,13 +4,13 @@ import java.util.Date;
 
 public abstract class ModeloBaseAdministracionElectronica {
 
-	protected Integer codigo;
-	protected String nombre;
-	protected Date fechaCreacion;
-	protected Date fechaUltimaActualizacion;
+	protected final Integer codigo;
+	protected final String nombre;
+	protected final Date fechaCreacion;
+	protected final Date fechaUltimaActualizacion;
 	
 	
-	public ModeloBaseAdministracionElectronica(Integer codigo, String nombre, Date fechaCreacion, Date fechUltimaActualizacion) {
+	public ModeloBaseAdministracionElectronica(Integer codigo, String nombre, Date fechaCreacion, Date fechaUltimaActualizacion) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;

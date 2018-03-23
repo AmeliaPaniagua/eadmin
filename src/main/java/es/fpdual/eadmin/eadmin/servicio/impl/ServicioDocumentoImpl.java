@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.fpdual.eadmin.eadmin.modelo.Documento;
+import es.fpdual.eadmin.eadmin.modelo.builder.DocumentoBuilder;
 import es.fpdual.eadmin.eadmin.repositorio.RepositorioDocumento;
 import es.fpdual.eadmin.eadmin.servicio.ServicioDocumento;
 
@@ -47,9 +48,20 @@ public class ServicioDocumentoImpl implements ServicioDocumento {
 	
 	protected Documento obtenerDocumentoConFechaCorrecta(Documento documento) {
 		
-		final Documento documentoModificado = new Documento (documento.getCodigo(), documento.getNombre(), dameFechaActual(), documento.getFechaUltimaActualizacion(), documento.getPublico(), documento.getEstado());
+		//final Documento documentoModificado = new Documento (documento.getCodigo(), documento.getNombre(), dameFechaActual(), documento.getFechaUltimaActualizacion(), 
+		//documento.getPublico(), documento.getEstado());
 		
-		return documentoModificado;
+//		return new DocumentoBuilder().
+//				conCodigo(documento.getCodigo()).
+//				conNombre(documento.getNombre()).
+//				conFechaCreacion(dameFechaActual()).
+//				conFechaUltimaActualizacion(documento.getFechaUltimaActualizacion()).
+//				conPublico(documento.getPublico()).
+//				conEstado(documento.getEstado()).construir();
+		
+		return new DocumentoBuilder().clonar(documento).
+				conFechaCreacion(dameFechaActual()).
+				construir();
 	}
 	
 	protected Date dameFechaActual() {

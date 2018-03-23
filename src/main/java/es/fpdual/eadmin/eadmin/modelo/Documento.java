@@ -6,8 +6,8 @@ public class Documento extends ModeloBaseAdministracionElectronica {
 
 //Creamos los atributos
 	
-	private Boolean publico;
-	private EstadoDocumento estado;
+	private final Boolean publico;
+	private final EstadoDocumento estado;
 
 //Constructor	
 		
