@@ -69,7 +69,7 @@ public class ExpedienteBuilder {
 		this.fechaUltimaActualizacion = expediente.getFechaUltimaActualizacion();
 		this.publico = expediente.getPublico();
 		this.estado = expediente.getEstado();
-		this.listaDocumentos = expediente.getDocumentos();
+		this.listaDocumentos = expediente.getListaDocumentos();
 		
 		return this;
 		
