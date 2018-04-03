@@ -51,17 +51,13 @@ public class ServicioExpedienteImpl implements ServicioExpediente {
 	@Override
 	public Expediente asociarDocumentoAlExpediente(Integer codigoExpediente, Documento documento) {
 		
-		
-		
-		return null;
+		return repositorioExpediente.asociarDocumentoAlExpediente(codigoExpediente, documento);
 	}
 
 	@Override
 	public Expediente desasociarDocumentoDelExpediente(Integer codigoExpediente, Integer codigoDocumento) {
 		
-		
-		
-		return null;
+		return repositorioExpediente.desasociarDocumentoDelExpediente(codigoExpediente, codigoDocumento);
 	}
 
 	protected Expediente obtenerExpedienteConFechaCorrecta(Expediente expediente) {
