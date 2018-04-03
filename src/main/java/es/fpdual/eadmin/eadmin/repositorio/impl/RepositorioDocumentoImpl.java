@@ -21,6 +21,7 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 		return documentos;
 	}
 	
+
 	
 	@Override
 	public void altaDocumento(Documento documento) {
@@ -29,6 +30,8 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 			throw new IllegalArgumentException("El documento ya existe");
 		}
 		documentos.add(documento);
+		
+		System.out.println("Se ha dado de alta un documento");
 					
 	}
 
@@ -65,8 +68,32 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 		
 	}
 	
+	
+	@Override
+	public Documento obtenerDocumentoPorCodigo(Integer codigo) {
+		
+		Optional<Documento> documentoEncontrado =
+				documentos.stream().filter(d ->tieneIgualCodigo(d, codigo)).findFirst();
+				if (documentoEncontrado.isPresent()) { 
+					return documentoEncontrado.get();
+				}	
+		return null;
+		
+		//Esto es otra opción de poner lo mismo que de arriba pero en una sola línea y sería lo mismo
+		//return documentos.stream().filter(d ->tieneIgualCodigo(d, codigo)).findFirst().orElseNull;		
+		
+	}
+
+
+	@Override
+	public List<Documento> obtenerTodosLosDocumentos() {
+		
+		return documentos;
+	}
+	
 	protected boolean tieneIgualCodigo(Documento documento, Integer codigo) {
 		
+		//devuelve un booleano de si es igual o no
 		return documento.getCodigo().equals(codigo);
 		
 	}

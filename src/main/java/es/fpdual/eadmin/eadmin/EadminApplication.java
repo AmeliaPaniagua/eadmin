@@ -9,4 +9,5 @@ public class EadminApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EadminApplication.class, args);
 	}
+	
 }

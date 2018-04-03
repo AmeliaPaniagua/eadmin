@@ -14,6 +14,7 @@ public class DocumentoBuilder {
 	protected Boolean publico;
 	protected EstadoDocumento estado;
 	
+	//se crea un documentoBuiler para clonar el documento para poder modificarlo.
 	public Documento construir() {
 		
 		return new Documento(codigo, nombre, fechaCreacion, fechaUltimaActualizacion, publico, estado);
@@ -49,7 +50,7 @@ public class DocumentoBuilder {
 		this.estado = estado;
 		return this;
 	}
-	
+		
 	public DocumentoBuilder clonar(Documento documento) {
 		//aquí mi documentoBuilder va a tener los mismos atributos que el documento que se me pasa por parámetros y luego devuelvo el documentoBuilder
 		this.codigo = documento.getCodigo();

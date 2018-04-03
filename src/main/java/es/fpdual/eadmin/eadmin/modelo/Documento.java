@@ -15,6 +15,7 @@ public class Documento extends ModeloBaseAdministracionElectronica {
 		super(codigo, nombre, fechaCreacion, fechaUltimaActualizacion);
 		this.publico = publico;
 		this.estado = estado;
+		
 	}
 
 

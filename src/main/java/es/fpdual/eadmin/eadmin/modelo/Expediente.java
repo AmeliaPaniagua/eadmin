@@ -21,7 +21,6 @@ public class Expediente extends ModeloBaseAdministracionElectronica {
 		this.listaDocumentos = documentos;
 	}
 	
-
 	public Date getFechaArchivo() {
 		return fechaArchivo;
 	}

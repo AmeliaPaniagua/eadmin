@@ -14,7 +14,7 @@ public class RepositorioExpedienteImpl implements RepositorioExpediente{
 
 	private final List <Expediente> expedientes = new ArrayList<>();
 	
-	
+
 	//getter
 		public List<Expediente> getExpedientes() {
 			return expedientes;
@@ -27,6 +27,8 @@ public class RepositorioExpedienteImpl implements RepositorioExpediente{
 			throw new IllegalArgumentException("El expediente ya existe");
 		}
 		expedientes.add(expediente);
+		
+		System.out.println("Se ha dado de alta un expediente");
 	}
 
 	@Override
