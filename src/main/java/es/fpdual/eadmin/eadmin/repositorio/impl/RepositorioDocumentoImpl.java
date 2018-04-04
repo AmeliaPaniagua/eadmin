@@ -63,7 +63,7 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 		Optional<Documento> documentoEncontrado =
 		documentos.stream().filter(d ->tieneIgualCodigo(d, codigo)).findFirst();
 		if (documentoEncontrado.isPresent()) { // comprueba si el objeto es nulo o no
-			documentos.remove(documentoEncontrado);
+			documentos.remove(documentoEncontrado.get());
 		}		
 		
 	}
