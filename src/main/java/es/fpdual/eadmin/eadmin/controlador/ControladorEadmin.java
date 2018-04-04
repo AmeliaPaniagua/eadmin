@@ -26,12 +26,14 @@ public class ControladorEadmin {
 		
 	}
 	
+	
 	//para probar en el navegador http://localhost:8080/eadmin/documentos
 	@GetMapping(value="/eadmin/documentos")
 	public ResponseEntity<List<Documento>> getTodosDocumento(){
 	
 		return new ResponseEntity<List<Documento>>(servicioDocumento.obtenerTodosLosDocumentos(),HttpStatus.OK);
 	}
+	
 	
 	//para probar en el navegador http://localhost:8080/eadmin/documentos/1
 	@GetMapping(value="/eadmin/documentos/{codigo}")
@@ -45,6 +47,7 @@ public class ControladorEadmin {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
+	
 	
 	//para probar en el navegador, desde google chrome añado la extensión Postman y desde ahí
 	//en GET ponemos http://localhost:8080/eadmin/documentos/eliminar/1

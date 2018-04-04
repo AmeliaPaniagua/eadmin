@@ -46,11 +46,14 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	@Override
 	public void modificarDocumento(Documento documento) {
 		
+		logger.info("Entrando en modificarDocumento()");
+		
 		if (!documentos.contains(documento)) {
 			throw new IllegalArgumentException("El documento que quiere modificar no existe");
 		}
 		documentos.set(documentos.indexOf(documento), documento);
 		
+		logger.info("Saliendo de modificarDocumento()");
 	}
 
 	@Override
@@ -67,12 +70,16 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 		
 		//Comentamos el for porque según Java 8 es mejor buscar en un array utilizando stream
 		
+		logger.info("Entrando en eliminarDocumento()");
 		
 		Optional<Documento> documentoEncontrado =
 		documentos.stream().filter(d ->tieneIgualCodigo(d, codigo)).findFirst();
 		if (documentoEncontrado.isPresent()) { // comprueba si el objeto es nulo o no
+			logger.info("Saliendo de eliminarDocumento()");
 			documentos.remove(documentoEncontrado.get());
-		}		
+		}
+		
+		logger.info("Saliendo de eliminarDocumento()");
 		
 	}
 	
@@ -80,11 +87,15 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	@Override
 	public Documento obtenerDocumentoPorCodigo(Integer codigo) {
 		
+		logger.info("Entrando en obtenerDocumentoPorCodigo");
+		
 		Optional<Documento> documentoEncontrado =
 				documentos.stream().filter(d ->tieneIgualCodigo(d, codigo)).findFirst();
-				if (documentoEncontrado.isPresent()) { 
-					return documentoEncontrado.get();
-				}	
+		if (documentoEncontrado.isPresent()) { 
+			logger.info("Saliendo en obtenerDocumentoPorCodigo");
+			return documentoEncontrado.get();
+		}	
+		logger.info("Saliendo en obtenerDocumentoPorCodigo");
 		return null;
 		
 		//Esto es otra opción de poner lo mismo que de arriba pero en una sola línea y sería lo mismo
@@ -102,7 +113,7 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 			logger.info("**************");
 			logger.info("Documento:" + doc.getCodigo());
 			logger.info("Nombre:" + doc.getNombre());
-			logger.info("Fecha: " + doc.getFechaCreacion());
+			logger.info("Fecha Creación: " + doc.getFechaCreacion());
 			logger.info("**************");
 		}		
 		logger.info("Saliendo de obtenerTodosLosDocumentos");

@@ -13,19 +13,19 @@ public class EadminApplication {
 	
 	public static void main(String[] args) {
 		
-//		logger.info("Esto es una prueba");
-//		
-//		//Debug.
-//		logger.debug("Depuración");
-//		
-//		//Trace
-//		logger.trace("Información");
-//		
-//		//Warning
-//		logger.warn("Advertencia");
-//		
-//		//Error
-//		logger.error("Error");
+		logger.info("Esto es una prueba");
+		
+		//Debug.
+		logger.debug("Depuración");
+		
+		//Trace
+		logger.trace("Información");
+		
+		//Warning
+		logger.warn("Advertencia");
+		
+		//Error
+		logger.error("Error");
 		
 		
 		logger.info("Inicio run");	
