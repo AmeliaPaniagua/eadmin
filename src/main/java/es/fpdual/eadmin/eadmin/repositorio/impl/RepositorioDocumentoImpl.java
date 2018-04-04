@@ -7,12 +7,17 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import es.fpdual.eadmin.eadmin.EadminApplication;
 import es.fpdual.eadmin.eadmin.modelo.Documento;
 import es.fpdual.eadmin.eadmin.repositorio.RepositorioDocumento;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Repository
 public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
+	private static final Logger logger = LoggerFactory.getLogger(RepositorioDocumentoImpl.class);
+	
 	private final List <Documento> documentos = new ArrayList<>();
 	
 
@@ -30,8 +35,11 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 			throw new IllegalArgumentException("El documento ya existe");
 		}
 		documentos.add(documento);
+				
+		logger.info(documento.toString() + " creado correctamente");
+				
 		
-		System.out.println("Se ha dado de alta un documento");
+		//System.out.println("Se ha dado de alta un documento");
 					
 	}
 
@@ -88,7 +96,18 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	@Override
 	public List<Documento> obtenerTodosLosDocumentos() {
 		
-		return documentos;
+		logger.info("Entrando en obtenerTodosLosDocumentos");
+		
+		for (Documento doc: documentos) {
+			logger.info("**************");
+			logger.info("Documento:" + doc.getCodigo());
+			logger.info("Nombre:" + doc.getNombre());
+			logger.info("Fecha: " + doc.getFechaCreacion());
+			logger.info("**************");
+		}		
+		logger.info("Saliendo de obtenerTodosLosDocumentos");
+		
+		return this.documentos;
 	}
 	
 	protected boolean tieneIgualCodigo(Documento documento, Integer codigo) {
@@ -99,3 +118,4 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	}
 
 }
+
