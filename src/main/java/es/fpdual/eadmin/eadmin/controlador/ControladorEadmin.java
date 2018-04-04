@@ -32,6 +32,7 @@ public class ControladorEadmin {
 	public ResponseEntity<List<Documento>> getTodosDocumento(){
 	
 		return new ResponseEntity<List<Documento>>(servicioDocumento.obtenerTodosLosDocumentos(),HttpStatus.OK);
+		
 	}
 	
 	

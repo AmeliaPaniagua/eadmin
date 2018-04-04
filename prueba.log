@@ -1,0 +1,67 @@
+2018-04-05 00:09:56.807  INFO 1816 --- [main] e.f.eadmin.eadmin.EadminApplication      : Starting EadminApplication on Meli with PID 1816 (C:\Users\Amelia\git\eadmin\target\classes started by Amelia in C:\Users\Amelia\git\eadmin)
+2018-04-05 00:09:56.823  INFO 1816 --- [main] e.f.eadmin.eadmin.EadminApplication      : No active profile set, falling back to default profiles: default
+2018-04-05 00:09:57.073  INFO 1816 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@258e2e41: startup date [Thu Apr 05 00:09:57 CEST 2018]; root of context hierarchy
+2018-04-05 00:10:04.873  INFO 1816 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2018-04-05 00:10:05.567  INFO 1816 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-04-05 00:10:05.567  INFO 1816 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.28
+2018-04-05 00:10:05.880  INFO 1816 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jre1.8.0_151\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_151/bin/server;C:/Program Files/Java/jre1.8.0_151/bin;C:/Program Files/Java/jre1.8.0_151/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Broadcom\Broadcom 802.11 Network Adapter;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\WIDCOMM\Bluetooth Software\;C:\Program Files\WIDCOMM\Bluetooth Software\syswow64;C:\Program Files (x86)\Brackets\command;C:\Program Files\Java\jdk1.8.0_144;C:\Program Files\Java\jdk1.8.0_144\bin;C:\Program Files\Java\jre1.8.0_144;C:\Program Files\Java\jdk1.8.0_144\src.zip;C:\sqlcl\bin;C:\apache-maven-3.5.3\bin;C:\Users\Amelia\Desktop;;.]
+2018-04-05 00:10:07.932  INFO 1816 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-04-05 00:10:07.937  INFO 1816 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 10863 ms
+2018-04-05 00:10:08.531  INFO 1816 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2018-04-05 00:10:08.562  INFO 1816 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-04-05 00:10:08.577  INFO 1816 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-04-05 00:10:08.577  INFO 1816 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-04-05 00:10:08.577  INFO 1816 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-04-05 00:10:10.844  INFO 1816 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@258e2e41: startup date [Thu Apr 05 00:09:57 CEST 2018]; root of context hierarchy
+2018-04-05 00:10:11.175  INFO 1816 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/eadmin/documentos],methods=[GET]}" onto public org.springframework.http.ResponseEntity<java.util.List<es.fpdual.eadmin.eadmin.modelo.Documento>> es.fpdual.eadmin.eadmin.controlador.ControladorEadmin.getTodosDocumento()
+2018-04-05 00:10:11.190  INFO 1816 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/eadmin/documentos/eliminar/{codigo}],methods=[POST]}" onto public org.springframework.http.ResponseEntity<?> es.fpdual.eadmin.eadmin.controlador.ControladorEadmin.eliminarDocumento(java.lang.Integer)
+2018-04-05 00:10:11.190  INFO 1816 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/eadmin/documentos/{codigo}],methods=[GET]}" onto public org.springframework.http.ResponseEntity<es.fpdual.eadmin.eadmin.modelo.Documento> es.fpdual.eadmin.eadmin.controlador.ControladorEadmin.getDocumento(java.lang.Integer)
+2018-04-05 00:10:11.206  INFO 1816 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-04-05 00:10:11.206  INFO 1816 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-04-05 00:10:11.425  INFO 1816 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-04-05 00:10:11.440  INFO 1816 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-04-05 00:10:11.612  INFO 1816 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-04-05 00:10:12.530  INFO 1816 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-04-05 00:10:13.607  INFO 1816 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2018-04-05 00:10:13.615  INFO 1816 --- [main] e.f.eadmin.eadmin.EadminApplication      : Started EadminApplication in 18.397 seconds (JVM running for 20.495)
+2018-04-05 00:10:13.646  INFO 1816 --- [main] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Documento con código 1 creado correctamente
+2018-04-05 00:10:13.646  INFO 1816 --- [main] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Documento con código 2 creado correctamente
+2018-04-05 00:10:13.646  INFO 1816 --- [main] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Documento con código 3 creado correctamente
+2018-04-05 00:10:13.646  INFO 1816 --- [main] e.f.eadmin.eadmin.EadminApplication      : Fin run
+2018-04-05 00:10:55.497  INFO 1816 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-04-05 00:10:55.504  INFO 1816 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-04-05 00:10:55.927  INFO 1816 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 422 ms
+2018-04-05 00:10:56.146  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Entrando en obtenerTodosLosDocumentos
+2018-04-05 00:10:56.146  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:10:56.146  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Documento:1
+2018-04-05 00:10:56.146  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Nombre:doc1
+2018-04-05 00:10:56.161  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Fecha Creación: Thu Apr 05 00:10:09 CEST 2018
+2018-04-05 00:10:56.161  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:10:56.161  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:10:56.161  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Documento:2
+2018-04-05 00:10:56.161  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Nombre:doc2
+2018-04-05 00:10:56.161  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Fecha Creación: Thu Apr 05 00:10:09 CEST 2018
+2018-04-05 00:10:56.161  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:10:56.161  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:10:56.161  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Documento:3
+2018-04-05 00:10:56.177  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Nombre:doc3
+2018-04-05 00:10:56.177  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Fecha Creación: Thu Apr 05 00:10:09 CEST 2018
+2018-04-05 00:10:56.177  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:10:56.177  INFO 1816 --- [http-nio-8080-exec-1] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Saliendo de obtenerTodosLosDocumentos
+2018-04-05 00:12:39.237  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Entrando en obtenerTodosLosDocumentos
+2018-04-05 00:12:39.242  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:12:39.242  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Documento:1
+2018-04-05 00:12:39.242  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Nombre:doc1
+2018-04-05 00:12:39.242  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Fecha Creación: Thu Apr 05 00:10:09 CEST 2018
+2018-04-05 00:12:39.242  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Documento:2
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Nombre:doc2
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Fecha Creación: Thu Apr 05 00:10:09 CEST 2018
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Documento:3
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Nombre:doc3
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Fecha Creación: Thu Apr 05 00:10:09 CEST 2018
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : **************
+2018-04-05 00:12:39.243  INFO 1816 --- [http-nio-8080-exec-4] e.f.e.e.r.impl.RepositorioDocumentoImpl  : Saliendo de obtenerTodosLosDocumentos
