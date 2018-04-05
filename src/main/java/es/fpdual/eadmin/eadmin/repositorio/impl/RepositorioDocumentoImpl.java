@@ -1,5 +1,9 @@
 package es.fpdual.eadmin.eadmin.repositorio.impl;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,29 +35,34 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	@Override
 	public void altaDocumento(Documento documento) {
 		
+		logger.info("Entrando en altaDocumento");
+		
 		if (documentos.contains(documento)) {
 			throw new IllegalArgumentException("El documento ya existe");
 		}
 		documentos.add(documento);
 				
-		logger.info(documento.toString() + " creado correctamente");
-				
+		escribirAltaDocFichero(documento);
 		
-		//System.out.println("Se ha dado de alta un documento");
+		logger.info(documento.toString() + " creado correctamente");
 					
 	}
+	
+			
 
 	@Override
 	public void modificarDocumento(Documento documento) {
 		
-		logger.info("Entrando en modificarDocumento()");
+		logger.info("Entrando en modificarDocumento");
 		
 		if (!documentos.contains(documento)) {
 			throw new IllegalArgumentException("El documento que quiere modificar no existe");
 		}
 		documentos.set(documentos.indexOf(documento), documento);
 		
-		logger.info("Saliendo de modificarDocumento()");
+		escribirModificacionDocFichero(documento);
+		
+		logger.info("Saliendo de modificarDocumento");
 	}
 
 	@Override
@@ -76,6 +85,7 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 		documentos.stream().filter(d ->tieneIgualCodigo(d, codigo)).findFirst();
 		if (documentoEncontrado.isPresent()) { // comprueba si el objeto es nulo o no
 			logger.info("Saliendo de eliminarDocumento()");
+			escribirEliminarDocFichero(codigo);
 			documentos.remove(documentoEncontrado.get());
 		}
 		
@@ -127,6 +137,147 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 		return documento.getCodigo().equals(codigo);
 		
 	}
+	
+	public void crearFicheroDocumentos() {
+		
+		FileWriter file = null;
+		PrintWriter pw = null;
+		
+		
+		logger.info("Iniciando...");
+		String nombreFichero = "ficherodocumentos.txt";
+		
+		
+		try {			
+			
+			file = new FileWriter (nombreFichero,true);
+			pw = new PrintWriter (file);
+			
+			
+			for (Documento doc: documentos) {
+				
+				pw.println("Documento:" + doc.getCodigo());
+				pw.println("Nombre:" + doc.getNombre());
+				pw.println("Fecha Creación: " + doc.getFechaCreacion());
+			}	
+	
+			pw.close();
+			
+			logger.info("Escribiendo en el fichero");
+			
+		} catch (IOException e) {
+			System.out.println("Ha habido un error");
+			e.printStackTrace();
+			pw.close();
+		}
+		
+		
+		logger.info("Escritura terminada");		
+		
+	}
+	
+	
+	public void escribirAltaDocFichero(Documento doc){
+		
+		FileWriter file = null;
+		PrintWriter pw = null;
+		
+		
+		logger.info("Iniciando...");
+		String nombreFichero = "Alta.txt";
+			
+		try {			
+			
+			file = new FileWriter (nombreFichero,true);
+			pw = new PrintWriter (file);
+			
+			pw.println("Documento:" + doc.getCodigo());
+			pw.println("Nombre:" + doc.getNombre());
+			pw.println("Fecha Creación: " + doc.getFechaCreacion());
+		
+			pw.close();
+			
+			logger.info("Escribiendo en el fichero el alta");
+			
+		} catch (IOException e) {
+			System.out.println("Ha habido un error");
+			e.printStackTrace();
+			pw.close();
+		}
+		
+		
+		logger.info("Escritura terminada");	
+		
+	}
+	
+	public void escribirModificacionDocFichero(Documento doc){
+		
+		FileWriter file = null;
+		PrintWriter pw = null;
+		
+		
+		logger.info("Iniciando...");
+		String nombreFichero = "Modificar.txt";
+			
+		try {			
+			
+			file = new FileWriter (nombreFichero, true);
+			pw = new PrintWriter (file);
+			
+			pw.println("Documento:" + doc.getCodigo());
+			pw.println("Nombre:" + doc.getNombre());
+			pw.println("Fecha Creación: " + doc.getFechaCreacion());
+	
+			pw.close();
+			
+			logger.info("Escribiendo en el fichero el documento modificado");
+			
+		} catch (IOException e) {
+			System.out.println("Ha habido un error");
+			e.printStackTrace();
+			pw.close();
+		}
+		
+		
+		logger.info("Escritura terminada");	
+		
+	}
+	
+	public void escribirEliminarDocFichero(Integer codigo){
+		
+		FileWriter file = null;
+		PrintWriter pw = null;
+		
+		
+		logger.info("Iniciando...");
+		String nombreFichero = "Eliminar.txt";
+			
+		try {			
+			
+			file = new FileWriter (nombreFichero);
+			pw = new PrintWriter (file);
+			
+			
+			pw.println(documentos);
+//			pw.println("Documento:" + doc.getCodigo());
+//			pw.println("Nombre:" + doc.getNombre());
+//			pw.println("Fecha Creación: " + doc.getFechaCreacion());
+	
+			pw.close();
+			
+			logger.info("Escribiendo en el fichero la eliminación del documento");
+			
+		} catch (IOException e) {
+			System.out.println("Ha habido un error");
+			e.printStackTrace();
+			pw.close();
+		}
+		
+		
+		logger.info("Escritura terminada");	
+		
+	}
+	
 
 }
 

@@ -36,12 +36,28 @@ public class CargarDatosIniciales implements ApplicationRunner{
 		this.repositorioDocumento.altaDocumento(new Documento(1, "doc1", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
 		this.repositorioDocumento.altaDocumento(new Documento(2, "doc2", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
 		this.repositorioDocumento.altaDocumento(new Documento(3, "doc3", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
+		this.repositorioDocumento.altaDocumento(new Documento(4, "doc4", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
+		this.repositorioDocumento.altaDocumento(new Documento(5, "doc5", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
 		
-	
+		this.repositorioDocumento.crearFicheroDocumentos();
 		
+		this.repositorioDocumento.modificarDocumento(new Documento(2, "doc2_Modificado", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
+		this.repositorioDocumento.modificarDocumento(new Documento(4, "doc4_Modificado", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
+		
+		this.repositorioDocumento.crearFicheroDocumentos();
+		
+		this.repositorioDocumento.eliminarDocumento(1);
+		this.repositorioDocumento.eliminarDocumento(3);
+		this.repositorioDocumento.eliminarDocumento(5);
+		
+		this.repositorioDocumento.crearFicheroDocumentos();
+		
+		
+		//Expedientes
 		this.repositorioExpediente.altaExpediente(new Expediente(1, "exp1", FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
 		this.repositorioExpediente.altaExpediente(new Expediente(2, "exp2", FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
 		this.repositorioExpediente.altaExpediente(new Expediente(3, "exp3", FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
+		
 		
 	}
 

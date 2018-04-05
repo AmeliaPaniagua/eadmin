@@ -16,4 +16,6 @@ public interface RepositorioDocumento {
 	
 	public abstract List<Documento> obtenerTodosLosDocumentos();
 	
+	public abstract void crearFicheroDocumentos();
+	
 }
