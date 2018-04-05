@@ -85,7 +85,7 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 		documentos.stream().filter(d ->tieneIgualCodigo(d, codigo)).findFirst();
 		if (documentoEncontrado.isPresent()) { // comprueba si el objeto es nulo o no
 			logger.info("Saliendo de eliminarDocumento()");
-			escribirEliminarDocFichero(codigo);
+			escribirEliminarDocFichero(documentoEncontrado);
 			documentos.remove(documentoEncontrado.get());
 		}
 		
@@ -243,7 +243,7 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 		
 	}
 	
-	public void escribirEliminarDocFichero(Integer codigo){
+	public void escribirEliminarDocFichero(Optional<Documento> doc){
 		
 		FileWriter file = null;
 		PrintWriter pw = null;
@@ -254,14 +254,14 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 			
 		try {			
 			
-			file = new FileWriter (nombreFichero);
+			file = new FileWriter (nombreFichero,true);
 			pw = new PrintWriter (file);
 			
 			
-			pw.println(documentos);
-//			pw.println("Documento:" + doc.getCodigo());
-//			pw.println("Nombre:" + doc.getNombre());
-//			pw.println("Fecha Creación: " + doc.getFechaCreacion());
+			//pw.println(documentos);
+			pw.println("Documento:" + doc.get().getCodigo());
+			pw.println("Nombre:" + doc.get().getNombre());
+			pw.println("Fecha Creación: " + doc.get().getFechaCreacion());
 	
 			pw.close();
 			
