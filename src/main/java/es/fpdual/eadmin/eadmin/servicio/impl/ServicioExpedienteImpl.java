@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import es.fpdual.eadmin.eadmin.modelo.Documento;
 import es.fpdual.eadmin.eadmin.modelo.Expediente;
-import es.fpdual.eadmin.eadmin.modelo.builder.DocumentoBuilder;
 import es.fpdual.eadmin.eadmin.modelo.builder.ExpedienteBuilder;
 import es.fpdual.eadmin.eadmin.repositorio.RepositorioExpediente;
 import es.fpdual.eadmin.eadmin.servicio.ServicioExpediente;
@@ -25,7 +24,7 @@ public class ServicioExpedienteImpl implements ServicioExpediente {
 	@Override
 	public Expediente altaExpediente(Expediente expediente) {
 		
-		final Expediente expedienteModificado = obtenerExpedienteConFechaCorrecta(expediente);
+		final Expediente expedienteModificado = this.obtenerExpedienteConFechaCorrecta(expediente);
 		
 		repositorioExpediente.altaExpediente(expedienteModificado);
 		
@@ -35,9 +34,11 @@ public class ServicioExpedienteImpl implements ServicioExpediente {
 	@Override
 	public Expediente modificarExpediente(Expediente expediente) {
 		
-		repositorioExpediente.modificarExpediente(expediente);
+		final Expediente expedienteModificado = this.obtenerExpedienteConFechaUtimaActualizacion(expediente);
 		
-		return expediente;
+		repositorioExpediente.modificarExpediente(expedienteModificado);
+		
+		return expedienteModificado;
 	}
 
 	@Override
@@ -50,21 +51,28 @@ public class ServicioExpedienteImpl implements ServicioExpediente {
 	@Override
 	public Expediente asociarDocumentoAlExpediente(Integer codigoExpediente, Documento documento) {
 		
-		return null;
+		return repositorioExpediente.asociarDocumentoAlExpediente(codigoExpediente, documento);
 	}
 
 	@Override
 	public Expediente desasociarDocumentoDelExpediente(Integer codigoExpediente, Integer codigoDocumento) {
 		
-		return null;
+		return repositorioExpediente.desasociarDocumentoDelExpediente(codigoExpediente, codigoDocumento);
 	}
 
 	protected Expediente obtenerExpedienteConFechaCorrecta(Expediente expediente) {
 		
 		return new ExpedienteBuilder().clonar(expediente).
-				conFechaCreacion(dameFechaActual()).
-				construir();
+				conFechaCreacion(dameFechaActual()).construir();
 	}
+	
+	protected Expediente obtenerExpedienteConFechaUtimaActualizacion(Expediente expediente) {
+		
+		return new ExpedienteBuilder().clonar(expediente).
+				conFechaUltimaActualizacion(dameFechaActual()).construir();
+		
+	}
+	
 	
 	protected Date dameFechaActual() {
 		

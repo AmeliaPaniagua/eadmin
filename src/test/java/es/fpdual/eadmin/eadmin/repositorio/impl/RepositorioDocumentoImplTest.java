@@ -3,6 +3,7 @@ package es.fpdual.eadmin.eadmin.repositorio.impl;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ public class RepositorioDocumentoImplTest {
 	private static final EstadoDocumento ESTADO_DOCUMENTO = EstadoDocumento.ACTIVO;
 	
 	private static final Documento DOCUMENTO = new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, FECHA_ULTIMA_MODIFICACION, DOCUMENTO_PUBLICO, ESTADO_DOCUMENTO);
+	
 	
 	private RepositorioDocumentoImpl repositorio;
 	
@@ -87,5 +89,38 @@ public class RepositorioDocumentoImplTest {
 		assertTrue(this.repositorio.getDocumentos().isEmpty());
 		
 	}
+	
+	@Test
+	public void probarQueObtieneElDocumento() {
+		
+		this.repositorio.altaDocumento(DOCUMENTO);
+		
+		Documento resultado = repositorio.obtenerDocumentoPorCodigo(CODIGO_DOCUMENTO);
+		
+		assertEquals(resultado, DOCUMENTO);
+		
+	}
+		
+	@Test
+	public void probarQueNoObtieneElDocumento() {
+		
+		Documento resultado = repositorio.obtenerDocumentoPorCodigo(CODIGO_DOCUMENTO);
+		
+		assertNotEquals(resultado,DOCUMENTO);
+		
+		
+	}
+	
+	@Test
+	public void probarQueObtieneTodosLosDocumentos() {
+		
+		List <Documento> lista = this.repositorio.getDocumentos() ;
+		List <Documento> resultado = this.repositorio.obtenerTodosLosDocumentos();
+		assertEquals(resultado,lista);
+		
+		
+		
+	}
+	
 	
 }

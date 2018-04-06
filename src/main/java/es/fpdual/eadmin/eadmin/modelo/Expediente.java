@@ -21,7 +21,6 @@ public class Expediente extends ModeloBaseAdministracionElectronica {
 		this.listaDocumentos = documentos;
 	}
 	
-
 	public Date getFechaArchivo() {
 		return fechaArchivo;
 	}
@@ -59,13 +58,13 @@ public class Expediente extends ModeloBaseAdministracionElectronica {
 	public boolean equals(Object obj) {
 				
 		if (obj instanceof Expediente) {  
-			return codigo.equals(((Expediente) obj).getCodigo())
-				&& nombre.equals(((Expediente) obj).getNombre())
-				&& fechaCreacion.equals(((Expediente) obj).getFechaCreacion())
-				&& fechaUltimaActualizacion.equals(((Expediente) obj).getFechaUltimaActualizacion())
-				&& fechaArchivo.equals(((Expediente) obj).getFechaArchivo())
-				&& publico.equals(((Expediente) obj).getPublico())
-				&& estado.equals(((Expediente) obj).getEstado());
+			return codigo.equals(((Expediente) obj).getCodigo());
+//				&& nombre.equals(((Expediente) obj).getNombre())
+//				&& fechaCreacion.equals(((Expediente) obj).getFechaCreacion())
+//				&& fechaUltimaActualizacion.equals(((Expediente) obj).getFechaUltimaActualizacion())
+//				&& fechaArchivo.equals(((Expediente) obj).getFechaArchivo())
+//				&& publico.equals(((Expediente) obj).getPublico())
+//				&& estado.equals(((Expediente) obj).getEstado());
 						
 		}
 		
