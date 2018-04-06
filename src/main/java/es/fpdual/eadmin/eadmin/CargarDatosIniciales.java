@@ -33,6 +33,8 @@ public class CargarDatosIniciales implements ApplicationRunner{
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+		
+		//documentos
 		this.repositorioDocumento.altaDocumento(new Documento(1, "doc1", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
 		this.repositorioDocumento.altaDocumento(new Documento(2, "doc2", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
 		this.repositorioDocumento.altaDocumento(new Documento(3, "doc3", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
@@ -57,7 +59,22 @@ public class CargarDatosIniciales implements ApplicationRunner{
 		this.repositorioExpediente.altaExpediente(new Expediente(1, "exp1", FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
 		this.repositorioExpediente.altaExpediente(new Expediente(2, "exp2", FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
 		this.repositorioExpediente.altaExpediente(new Expediente(3, "exp3", FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
+		this.repositorioExpediente.altaExpediente(new Expediente(4, "exp4", FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
+		this.repositorioExpediente.altaExpediente(new Expediente(5, "exp5", FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
 		
+		this.repositorioExpediente.crearFicheroExpedientes();
+		
+		this.repositorioExpediente.modificarExpediente(new Expediente(2, "exp2_MODIFICADO", FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
+		this.repositorioExpediente.modificarExpediente(new Expediente(4, "exp4_MODIFICADO",FECHA, FECHA, FECHA, true, EstadoExpediente.INICIADO, lista));
+		
+		
+		this.repositorioExpediente.crearFicheroExpedientes();
+		
+		this.repositorioExpediente.eliminarExpediente(1);
+		this.repositorioExpediente.eliminarExpediente(3);
+		this.repositorioExpediente.eliminarExpediente(5);
+		
+		this.repositorioExpediente.crearFicheroExpedientes();
 		
 	}
 

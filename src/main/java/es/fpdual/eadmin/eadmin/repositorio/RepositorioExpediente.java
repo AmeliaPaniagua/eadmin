@@ -15,4 +15,6 @@ public interface RepositorioExpediente {
 	
 	Expediente desasociarDocumentoDelExpediente(Integer codigoExpediente, Integer codigoDocumento);
 	
+	public abstract void crearFicheroExpedientes();
+	
 }
