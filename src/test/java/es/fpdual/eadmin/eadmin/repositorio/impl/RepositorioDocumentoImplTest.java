@@ -48,7 +48,7 @@ public class RepositorioDocumentoImplTest {
 		
 		repositorio.modificarDocumento(doc2);
 		assertNotEquals(DOCUMENTO, doc2);
-	}
+}
 	
 	@Test
 	public void probarDocumentoExiste() {
