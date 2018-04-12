@@ -10,4 +10,10 @@ public interface DocumentoMapper {
 	//añadimos este árbol de carpetas a src/main/resources
 	//es/fpdual/eadmin/eadmin/mapper
 	
+	int eliminarDocumento(@Param ("codigo")int codigo);
+	
+	int modificarDocumento(@Param("documento")Documento documento);
+	
+	Documento seleccionarDocumento(@Param("codigo")int codigo);
+	
 }

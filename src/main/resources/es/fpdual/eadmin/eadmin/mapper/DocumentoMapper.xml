@@ -18,8 +18,33 @@
 			#{documento.fechaUltimaActualizacion}, 
 			#{documento.publico}, 
 			1, 
-			#{documento.estado})
+			#{documento.estado.codigo})
 	</insert>
+	
+	<update id="modificarDocumento">
+<!-- 		UPDATE Elemento		 -->
+<!-- 		SET	nombre = #{documento.nombre}, -->
+<!-- 			fechaCreacion = #{documento.fechaCreacion},  -->
+<!-- 			fechaActualizacion = #{documento.fechaUltimaActualizacion},  -->
+<!-- 			esPublico = #{documento.publico},  -->
+<!-- 			estadoDocumento = #{documento.estado.codigo} -->
+<!-- 		WHERE codigo = #{documento.codigo} -->
+		
+		UPDATE Elemento SET tipo =1 WHERE codigo = 1
+	
+	</update>
+
+	<delete id="eliminarDocumento">
+		DELETE FROM Elemento 
+			WHERE codigo = #{codigo}	
+	
+	</delete>
+	
+<!-- 	@ResultMap -->
+	<select id="seleccionarDocumento">
+		SELECT * FROM Elemento WHERE codigo = #{codigo}
+	
+	</select>
 
 
 </mapper>
