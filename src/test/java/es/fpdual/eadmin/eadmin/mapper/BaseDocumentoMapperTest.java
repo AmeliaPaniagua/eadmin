@@ -67,10 +67,10 @@ public abstract class BaseDocumentoMapperTest {
 	@Test
 	public void deberiaModificarUnDocumento() {
 		//DECLARACION
-		Documento documentoActualizado = new Documento (1, "Documento_MODIFICADO",  Utilidades.asDate(LocalDate.of(2015, 9, 30)), Utilidades.asDate(LocalDate.of(2015, 12, 28)), true, EstadoDocumento.ACTIVO);
+		final Documento documentoActualizado = new Documento (1, "Documento_MODIFICADO",  Utilidades.asDate(LocalDate.of(2015, 3, 1)), Utilidades.asDate(LocalDate.of(2015, 5, 1)), true, EstadoDocumento.ACTIVO);
 		
 		//ENTRENAMIENTO
-		this.mapper.insertarDocumento(this.documento);
+		this.mapper.insertarDocumento(documento);
 		
 		//PRUEBA
 		final int resultado = this.mapper.modificarDocumento(documentoActualizado);
@@ -84,6 +84,21 @@ public abstract class BaseDocumentoMapperTest {
 		
 		
 	}
+	
+	@Test
+	public void deberiaRecuperarUnDocumentoPorCodigo() {
+		//DECLARACION
+		
+		//ENTRENAMIENTO
+		this.mapper.insertarDocumento(this.documento);
+		
+		final Documento resultado = this.mapper.seleccionarDocumento(1);
+		
+		assertThat(resultado,is(documento));
+		
+	}
+	
+	
 	
 //	@Test
 //	public void deberiaSeleccionarUnDocumento() {

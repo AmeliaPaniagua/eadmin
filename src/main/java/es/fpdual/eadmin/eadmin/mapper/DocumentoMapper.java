@@ -16,4 +16,5 @@ public interface DocumentoMapper {
 	
 	Documento seleccionarDocumento(@Param("codigo")int codigo);
 	
+	
 }

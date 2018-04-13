@@ -27,34 +27,42 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
+import es.fpdual.eadmin.eadmin.mapper.DocumentoMapper;
 import es.fpdual.eadmin.eadmin.modelo.Documento;
 import es.fpdual.eadmin.eadmin.repositorio.RepositorioDocumento;
 
 @Repository
 public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
+	private DocumentoMapper mapper;
+	
+	@Autowired
+	public RepositorioDocumentoImpl (DocumentoMapper mapper) {
+		this.mapper = mapper;
+	}
+	
 	private static final Logger logger = LoggerFactory.getLogger(RepositorioDocumentoImpl.class);
 
-	private final List<Documento> documentos = new ArrayList<>();
-
-	// getter
-	public List<Documento> getDocumentos() {
-		return documentos;
-	}
+//	private final List<Documento> documentos = new ArrayList<>();
+//
+//	// getter
+//	public List<Documento> getDocumentos() {
+//		return documentos;
+//	}
 
 	@Override
 	public void altaDocumento(Documento documento) {
 
 		logger.info("Entrando en altaDocumento");
+		
 
-		if (documentos.contains(documento)) {
-			throw new IllegalArgumentException("El documento ya existe");
-		}
-		documentos.add(documento);
+		this.mapper.insertarDocumento(documento);
+		
 
 		escribirAltaDocFichero(documento);
 
@@ -69,10 +77,9 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
 		logger.info("Entrando en modificarDocumento");
 
-		if (!documentos.contains(documento)) {
-			throw new IllegalArgumentException("El documento que quiere modificar no existe");
-		}
-		documentos.set(documentos.indexOf(documento), documento);
+		this.mapper.modificarDocumento(documento);
+		
+		//documentos.set(documentos.indexOf(documento), documento);
 
 		escribirModificacionDocFichero(documento);
 

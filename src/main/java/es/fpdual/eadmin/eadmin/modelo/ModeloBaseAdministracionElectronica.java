@@ -2,6 +2,10 @@ package es.fpdual.eadmin.eadmin.modelo;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+
 public abstract class ModeloBaseAdministracionElectronica {
 
 	protected final Integer codigo;
@@ -39,21 +43,42 @@ public abstract class ModeloBaseAdministracionElectronica {
 
 		@Override
 		public int hashCode() {
-			return codigo.hashCode(); //+ nombre.hashCode() -> por si queremos añadirle el nombre también
+			
+			final HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
+			
+			hashCodeBuilder.append(codigo);
+			hashCodeBuilder.append(nombre);
+			hashCodeBuilder.append(fechaCreacion);
+			hashCodeBuilder.append(fechaUltimaActualizacion);
+			
+			return hashCodeBuilder.toHashCode();
+					
 		}
 
 		@Override
 		public boolean equals(Object obj) {
+			
 					
 			if (obj instanceof ModeloBaseAdministracionElectronica) {  //instanceof -> si el objeto tiene la misma instancia que el objeto de la clase Documento
-				return codigo.equals(((ModeloBaseAdministracionElectronica) obj).getCodigo());
-				//&& nombre.equals(((Documento) obj).getNombre())-> por si queremos comparar tambien por el nombre, si el codigo y el nombre son iguales
+				
+				final ModeloBaseAdministracionElectronica  param  = (ModeloBaseAdministracionElectronica)obj;
+				EqualsBuilder equalsBuilder = new EqualsBuilder();
+				
+				equalsBuilder.append(this.codigo, param.codigo);
+				equalsBuilder.append(this.nombre, param.nombre);
+				equalsBuilder.append(this.fechaCreacion, param.fechaCreacion);
+				equalsBuilder.append(this.fechaUltimaActualizacion, param.fechaUltimaActualizacion);
+				
+				return equalsBuilder.isEquals();
+				
+				//-> por si queremos comparar tambien por el nombre, si el codigo y el nombre son iguales
 				//pues el objeto sería el mismo
 			}
 			
 			return false;
 			
 		}
+		
 		
 		@Override
 		public String toString() {

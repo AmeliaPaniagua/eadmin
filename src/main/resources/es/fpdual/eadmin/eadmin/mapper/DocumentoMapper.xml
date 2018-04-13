@@ -22,29 +22,45 @@
 	</insert>
 	
 	<update id="modificarDocumento">
-<!-- 		UPDATE Elemento		 -->
-<!-- 		SET	nombre = #{documento.nombre}, -->
-<!-- 			fechaCreacion = #{documento.fechaCreacion},  -->
-<!-- 			fechaActualizacion = #{documento.fechaUltimaActualizacion},  -->
-<!-- 			esPublico = #{documento.publico},  -->
-<!-- 			estadoDocumento = #{documento.estado.codigo} -->
-<!-- 		WHERE codigo = #{documento.codigo} -->
-		
-		UPDATE Elemento SET tipo =1 WHERE codigo = 1
-	
+		UPDATE Elemento		
+		SET	nombre = #{documento.nombre},
+			fechaCreacion = #{documento.fechaCreacion}, 
+			fechaUltimaActualizacion = #{documento.fechaUltimaActualizacion}, 
+			esPublico = #{documento.publico}, 
+			estadoDocumento = #{documento.estado.codigo}
+		WHERE codigo = #{documento.codigo}
+			
 	</update>
 
 	<delete id="eliminarDocumento">
-		DELETE FROM Elemento 
-			WHERE codigo = #{codigo}	
+		DELETE FROM Elemento WHERE codigo = #{codigo}	
 	
 	</delete>
 	
-<!-- 	@ResultMap -->
-	<select id="seleccionarDocumento">
-		SELECT * FROM Elemento WHERE codigo = #{codigo}
+
+	<select id="seleccionarDocumento" resultMap="documentoResultMap">
+	
+		SELECT codigo, 
+			nombre, 
+			fechaCreacion, 
+			fechaUltimaActualizacion, 
+			esPublico, 
+			estadoDocumento
+		FROM Elemento
+		WHERE codigo = #{codigo}
 	
 	</select>
+	
+		<resultMap id="documentoResultMap" type="es.fpdual.eadmin.eadmin.modelo.Documento">
+		<constructor>
+		   <idArg column="codigo" javaType="Integer"/>
+		   <arg column="nombre" javaType="String"/>
+		   <arg column="fechaCreacion" javaType="date"/>
+		   <arg column="fechaUltimaActualizacion" javaType="date"/>
+		   <arg column="esPublico" javaType="Boolean"/>
+		   <arg column="estadoDocumento" javaType="es.fpdual.eadmin.eadmin.modelo.EstadoDocumento"/>
+		</constructor>
+	</resultMap>
 
 
 </mapper>
