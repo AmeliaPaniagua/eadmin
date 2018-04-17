@@ -3,6 +3,10 @@
 <mapper namespace="es.fpdual.eadmin.eadmin.mapper.DocumentoMapper">
 
 	<insert id="insertarDocumento">
+	<selectKey  keyProperty= "id" keyColumn="codigo" resultType="int" order="BEFORE">
+		SELECT ISNULL( MAX(codigo), 0) + 1	FROM Elemento
+	</selectKey>
+	
 		INSERT INTO Elemento (
 		codigo, 
 		nombre, 
@@ -12,7 +16,7 @@
 		tipo, 
 		estadoDocumento) 
 			VALUES (
-			#{documento.codigo}, 
+			#{id}, 
 			#{documento.nombre},
 			#{documento.fechaCreacion}, 
 			#{documento.fechaUltimaActualizacion}, 
@@ -40,6 +44,25 @@
 
 	<select id="seleccionarDocumento" resultMap="documentoResultMap">
 	
+		<include refid="baseSelectDocumento"/> and codigo = #{codigo}
+	
+	</select>
+	
+	<select id="seleccionarTodosLosDocumentos" resultMap="documentoResultMap">
+	
+		<include refid="baseSelectDocumento"/>
+	
+	</select>
+	
+	<select id="seleccionarDocumentoCodigoMaximo" resultType="integer">
+	
+		SELECT ISNULL( MAX(codigo), 0) + 1	FROM Elemento
+	
+	</select>
+	
+	
+	<!--este trozo de sql lo vamos a utilizar como si fuera una variable que podemos utilizar por eso arriba concatenamos con el codigo para añadirle otro trozo  -->
+	<sql id="baseSelectDocumento">
 		SELECT codigo, 
 			nombre, 
 			fechaCreacion, 
@@ -47,11 +70,11 @@
 			esPublico, 
 			estadoDocumento
 		FROM Elemento
-		WHERE codigo = #{codigo}
+		WHERE tipo = 1
 	
-	</select>
+	</sql>
 	
-		<resultMap id="documentoResultMap" type="es.fpdual.eadmin.eadmin.modelo.Documento">
+	<resultMap id="documentoResultMap" type="es.fpdual.eadmin.eadmin.modelo.Documento">
 		<constructor>
 		   <idArg column="codigo" javaType="Integer"/>
 		   <arg column="nombre" javaType="String"/>

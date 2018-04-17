@@ -7,6 +7,7 @@ import static org.mockito.Mockito.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -95,6 +96,52 @@ public abstract class BaseDocumentoMapperTest {
 		final Documento resultado = this.mapper.seleccionarDocumento(1);
 		
 		assertThat(resultado,is(documento));
+		
+	}
+	
+	public void deberiaRecuperarTodosLosDocumento()throws Exception{
+		
+		//DECLARACION
+		final Documento documento2 = new Documento(2, "Documento2",
+				Utilidades.asDate(LocalDate.of(2015, 3, 1)), Utilidades.asDate(LocalDate.of(2015, 5, 1)), false,
+				EstadoDocumento.ACTIVO);
+
+		// ENTRENAMIENTO
+		this.mapper.insertarDocumento(this.documento);
+		this.mapper.insertarDocumento(documento2);
+
+		// PRUEBA
+	
+		
+		final List<Documento> resultado = this.mapper.seleccionarTodosLosDocumentos();
+		
+		// VERIFICACIÓN
+		assertThat(resultado.size(), is(2));
+		 //esto es lo mismo que lo de arriba
+		assertThat(resultado, hasSize(2)); //comprobar que la longitud es 2
+		
+		//Verifica que dentro de la lista están los dos documentos
+		assertThat(resultado, hasItems(this.documento, documento2));
+		
+	}
+	
+	@Test
+	public void deberiaObtener1CuandoNoHayElementosAlCalcularElMaximoCodigo() {
+		
+		final int resultado = this.mapper.seleccionarDocumentoCodigoMaximo();
+		
+		assertThat(resultado, is(1));
+		
+	}
+	
+	@Test
+	public void deberiaDevolverElSiguienteIdentificador() {
+		
+		this.mapper.insertarDocumento(this.documento);
+		
+		final int resultado = this.mapper.seleccionarDocumentoCodigoMaximo();
+		
+		assertThat(resultado, is(2));
 		
 	}
 	

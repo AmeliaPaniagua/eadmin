@@ -1,13 +1,20 @@
 package es.fpdual.eadmin.eadmin.repositorio.impl;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.codec.language.MatchRatingApproachEncoder;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.fpdual.eadmin.eadmin.mapper.DocumentoMapper;
 import es.fpdual.eadmin.eadmin.modelo.Documento;
 import es.fpdual.eadmin.eadmin.modelo.EstadoDocumento;
 
@@ -20,107 +27,103 @@ public class RepositorioDocumentoImplTest {
 	private static final Boolean DOCUMENTO_PUBLICO = true;
 	private static final EstadoDocumento ESTADO_DOCUMENTO = EstadoDocumento.ACTIVO;
 	
-	private static final Documento DOCUMENTO = new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, FECHA_ULTIMA_MODIFICACION, DOCUMENTO_PUBLICO, ESTADO_DOCUMENTO);
+	private static final Documento documento = new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, FECHA_ULTIMA_MODIFICACION, DOCUMENTO_PUBLICO, ESTADO_DOCUMENTO);
 	
 	
 	private RepositorioDocumentoImpl repositorio;
 	
+	//Creamos un documento mapper 
+	private DocumentoMapper mapper;
+	
 	@Before
 	public void inicializarCadaTest() {
-				
-		this.repositorio = new RepositorioDocumentoImpl();
+		
+		//Mockeamos el DocumentoMapper
+		mapper = mock(DocumentoMapper.class);
+		//se lo damos a nuestro RepositorioDocumentoImpl el mapper mockeado
+		this.repositorio = new RepositorioDocumentoImpl(this.mapper);
 		
 	}	
 	
 	@Test
 	public void probarAltaDocumento() {
 		
-		this.repositorio.altaDocumento(DOCUMENTO);
-		assertFalse(repositorio.getDocumentos().isEmpty());                              
+		//PRUEBA
+		this.repositorio.altaDocumento(this.documento);
+		
+		//VERIFICACION  -> verifica 
+		verify(this.mapper).insertarDocumento(this.documento);                            
 		
 	}
 	
-	@Test
-	public void probarDocumentoNoExiste() {
-		
-		this.repositorio.altaDocumento(DOCUMENTO);
-		Documento doc2 = new Documento(2, "nombre2", FECHA_CREACION, FECHA_ULTIMA_MODIFICACION, DOCUMENTO_PUBLICO, ESTADO_DOCUMENTO);
-		
-		repositorio.modificarDocumento(doc2);
-		assertNotEquals(DOCUMENTO, doc2);
-}
-	
-	@Test
-	public void probarDocumentoExiste() {
-		
-		this.repositorio.altaDocumento(DOCUMENTO);
-		Documento doc2 = new Documento(CODIGO_DOCUMENTO, "nombre2", FECHA_CREACION, FECHA_ULTIMA_MODIFICACION, DOCUMENTO_PUBLICO, ESTADO_DOCUMENTO);
-		
-		this.repositorio.altaDocumento(doc2);
-		assertEquals(DOCUMENTO, doc2);
-		
-	}
 	
 	@Test
 	public void probarModificarDocumento() {
 		
-		//this.repositorio.getDocumentos().add(DOCUMENTO);
-		this.repositorio.altaDocumento(DOCUMENTO);
-		Documento doc2 = new Documento(CODIGO_DOCUMENTO, "nombre2", FECHA_CREACION, FECHA_ULTIMA_MODIFICACION, DOCUMENTO_PUBLICO, ESTADO_DOCUMENTO);
+		//ENTRENAMIENTO
+		when(mapper.modificarDocumento(this.documento)).thenReturn(1);
 		
-		repositorio.modificarDocumento(doc2);
-		assertEquals(DOCUMENTO, doc2);
+		//PRUEBA
+		this.repositorio.modificarDocumento(this.documento);
+		
+		//VERIFICACION
+		verify(this.mapper).modificarDocumento(this.documento);  
+
+	}
+	
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void deberiaLanzarExcepcionSiIntentamosModificarUnDocumentoQueNoExiste() {
+		
+		//ENTRENAMIENTO
+		when(this.mapper.modificarDocumento(this.documento)).thenReturn(0);
+		
+		//PRUEBA
+		this.repositorio.modificarDocumento(this.documento);
 		
 	}
+	
+	
 	
 	@Test
 	public void deberiaEliminarDocumento() {
 		
-		this.repositorio.getDocumentos().add(DOCUMENTO);
-		this.repositorio.eliminarDocumento(DOCUMENTO.getCodigo());
-		assertTrue(this.repositorio.getDocumentos().isEmpty());
+		//PRUEBA
+		this.repositorio.eliminarDocumento(this.documento.getCodigo());
 		
+		//VERIFICACION
+		verify(this.mapper).eliminarDocumento(this.documento.getCodigo());  
 	}
 	
 	@Test
-	public void deberiaEliminarDocumentoQueNoEstaEnLista() {
+	public void deberiaObtenerDocumentoPorCodigo() {
+		//DECLARACION
 		
-		this.repositorio.eliminarDocumento(DOCUMENTO.getCodigo());
-		assertTrue(this.repositorio.getDocumentos().isEmpty());
+		//ENTRENAMIENTO
+		when(this.mapper.seleccionarDocumento(CODIGO_DOCUMENTO)).thenReturn(this.documento);
 		
+		//PRUEBA
+		final Documento resultado = this.repositorio.obtenerDocumentoPorCodigo(CODIGO_DOCUMENTO);
+		
+		//VERIFICACION
+		assertThat(resultado, is(this.documento));
 	}
 	
 	@Test
-	public void probarQueObtieneElDocumento() {
+	public void deberiaObtenerTodosLosDocumentos() {
+		//DECLARACION
+		final List<Documento> todosLosDocumentos = Arrays.asList(this.documento);		
 		
-		this.repositorio.altaDocumento(DOCUMENTO);
+		//ENTRENAMIENTO
+		when(this.mapper.seleccionarTodosLosDocumentos()).thenReturn(todosLosDocumentos);
 		
-		Documento resultado = repositorio.obtenerDocumentoPorCodigo(CODIGO_DOCUMENTO);
+		//PRUEBA
+		final List<Documento> resultado = this.repositorio.obtenerTodosLosDocumentos();
 		
-		assertEquals(resultado, DOCUMENTO);
-		
-	}
-		
-	@Test
-	public void probarQueNoObtieneElDocumento() {
-		
-		Documento resultado = repositorio.obtenerDocumentoPorCodigo(CODIGO_DOCUMENTO);
-		
-		assertNotEquals(resultado,DOCUMENTO);
-		
-		
+		//VERIFICACION
+		assertThat(resultado, hasSize(1));
+		assertThat(resultado, hasItem(this.documento));
 	}
 	
-	@Test
-	public void probarQueObtieneTodosLosDocumentos() {
-		
-		List <Documento> lista = this.repositorio.getDocumentos() ;
-		List <Documento> resultado = this.repositorio.obtenerTodosLosDocumentos();
-		assertEquals(resultado,lista);
-		
-		
-		
-	}
-	
-	
+
 }

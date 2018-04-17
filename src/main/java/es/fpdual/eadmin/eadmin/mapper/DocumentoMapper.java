@@ -1,5 +1,7 @@
 package es.fpdual.eadmin.eadmin.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.*;
 
 import es.fpdual.eadmin.eadmin.modelo.*;
@@ -15,6 +17,12 @@ public interface DocumentoMapper {
 	int modificarDocumento(@Param("documento")Documento documento);
 	
 	Documento seleccionarDocumento(@Param("codigo")int codigo);
+	
+	List<Documento> seleccionarTodosLosDocumentos();
+	
+	int seleccionarDocumentoCodigoMaximo();
+
+
 	
 	
 }

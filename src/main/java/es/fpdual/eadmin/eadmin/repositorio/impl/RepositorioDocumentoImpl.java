@@ -34,6 +34,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import es.fpdual.eadmin.eadmin.mapper.DocumentoMapper;
 import es.fpdual.eadmin.eadmin.modelo.Documento;
+import es.fpdual.eadmin.eadmin.modelo.builder.DocumentoBuilder;
 import es.fpdual.eadmin.eadmin.repositorio.RepositorioDocumento;
 
 @Repository
@@ -60,9 +61,21 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
 		logger.info("Entrando en altaDocumento");
 		
-
-		this.mapper.insertarDocumento(documento);
 		
+		
+		//1. obtener max+1  de la base de datos y sino hay datos darle el codigo 0 para que genere el max+1 = 1
+		//2. modificar el objeto documento que me pasan por parámetro para enchuflarle el codigo calculado
+		//3. insertar el documento con este nuevo codigo
+		
+		
+		final int siguienteIdentificador = this.mapper.seleccionarDocumentoCodigoMaximo();
+		
+		final Documento paraInsertar = new DocumentoBuilder().clonar(documento).conCodigo(siguienteIdentificador).construir();
+				
+		
+		//bbdd
+		this.mapper.insertarDocumento(paraInsertar);
+		//
 
 		escribirAltaDocFichero(documento);
 
@@ -77,10 +90,14 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
 		logger.info("Entrando en modificarDocumento");
 
-		this.mapper.modificarDocumento(documento);
+		int modificado = this.mapper.modificarDocumento(documento);
 		
-		//documentos.set(documentos.indexOf(documento), documento);
-
+		if(modificado == 0) {
+			throw new IllegalArgumentException("No se encuentra el documento");
+			
+		}
+		
+		//Escribir en un excel las modificaciones
 		escribirModificacionDocFichero(documento);
 
 		this.exportExcel("Modificar", documento, "Documentos.xlsx");
@@ -105,15 +122,18 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
 		logger.info("Entrando en eliminarDocumento()");
 
-		Optional<Documento> documentoEncontrado = documentos.stream().filter(d -> tieneIgualCodigo(d, codigo))
-				.findFirst();
-		if (documentoEncontrado.isPresent()) { // comprueba si el objeto es nulo o no
-			escribirEliminarDocFichero(documentoEncontrado);
-
-			this.exportExcel("Eliminar", documentoEncontrado.get(), "Documentos.xlsx");
-
-			documentos.remove(documentoEncontrado.get());
-		}
+		
+		this.mapper.eliminarDocumento(codigo);
+		
+//		Optional<Documento> documentoEncontrado = documentos.stream().filter(d -> tieneIgualCodigo(d, codigo))
+//				.findFirst();
+//		if (documentoEncontrado.isPresent()) { // comprueba si el objeto es nulo o no
+//////			escribirEliminarDocFichero(documentoEncontrado);
+//
+//	///		this.exportExcel("Eliminar", documentoEncontrado.get(), "Documentos.xlsx");
+//
+//			documentos.remove(documentoEncontrado.get());
+//		}
 
 		logger.info("Saliendo de eliminarDocumento()");
 
@@ -123,15 +143,20 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	public Documento obtenerDocumentoPorCodigo(Integer codigo) {
 
 		logger.info("Entrando en obtenerDocumentoPorCodigo");
+		
+		//BBDD
+		return this.mapper.seleccionarDocumento(codigo);
+		
+		
 
-		Optional<Documento> documentoEncontrado = documentos.stream().filter(d -> tieneIgualCodigo(d, codigo))
-				.findFirst();
-		if (documentoEncontrado.isPresent()) {
-			logger.info("Saliendo en obtenerDocumentoPorCodigo");
-			return documentoEncontrado.get();
-		}
-		logger.info("Saliendo en obtenerDocumentoPorCodigo");
-		return null;
+//		Optional<Documento> documentoEncontrado = documentos.stream().filter(d -> tieneIgualCodigo(d, codigo))
+//				.findFirst();
+//		if (documentoEncontrado.isPresent()) {
+			
+//			return documentoEncontrado.get();
+//		}
+		
+		
 
 		// Esto es otra opción de poner lo mismo que de arriba pero en una sola línea y
 		// sería lo mismo
@@ -144,25 +169,19 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	public List<Documento> obtenerTodosLosDocumentos() {
 
 		logger.info("Entrando en obtenerTodosLosDocumentos");
+		
+		return this.mapper.seleccionarTodosLosDocumentos();
 
-		for (Documento doc : documentos) {
-			logger.info("**************");
-			logger.info("Documento:" + doc.getCodigo());
-			logger.info("Nombre:" + doc.getNombre());
-			logger.info("Fecha Creación: " + doc.getFechaCreacion());
-			logger.info("**************");
-		}
-		logger.info("Saliendo de obtenerTodosLosDocumentos");
-
-		return this.documentos;
-	}
-
-	protected boolean tieneIgualCodigo(Documento documento, Integer codigo) {
-
-		// devuelve un booleano de si es igual o no
-		return documento.getCodigo().equals(codigo);
+//		for (Documento doc : documentos) {
+//			logger.info("**************");
+//			logger.info("Documento:" + doc.getCodigo());
+//			logger.info("Nombre:" + doc.getNombre());
+//			logger.info("Fecha Creación: " + doc.getFechaCreacion());
+//			logger.info("**************");
+//		}
 
 	}
+
 
 	public void crearFicheroDocumentos() {
 
@@ -177,12 +196,12 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 			file = new FileWriter(nombreFichero, true);
 			pw = new PrintWriter(file);
 
-			for (Documento doc : documentos) {
-
-				pw.println("Documento:" + doc.getCodigo());
-				pw.println("Nombre:" + doc.getNombre());
-				pw.println("Fecha Creación: " + doc.getFechaCreacion());
-			}
+//			for (Documento doc : documentos) {
+//
+//				pw.println("Documento:" + doc.getCodigo());
+//				pw.println("Nombre:" + doc.getNombre());
+//				pw.println("Fecha Creación: " + doc.getFechaCreacion());
+//			}
 
 			pw.close();
 
@@ -273,7 +292,6 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 			file = new FileWriter(nombreFichero, true);
 			pw = new PrintWriter(file);
 
-			// pw.println(documentos);
 			pw.println("Documento:" + doc.get().getCodigo());
 			pw.println("Nombre:" + doc.get().getNombre());
 			pw.println("Fecha Creación: " + doc.get().getFechaCreacion());
@@ -326,87 +344,7 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 				new Object[] { documento.getCodigo().toString(), documento.getNombre().toString(),
 						documento.getFechaCreacion().toString(), documento.getPublico().toString() });
 
-		// if(correcto){
-		//
-		// ArrayList<String[]> datosExcel = importExcel("Excel.xlsx",4);
-		// ListIterator<String[]> it = datosExcel.listIterator();
-		//
-		// while (it.hasNext()) {
-		// String[] datos = it.next();
-		// String personaInfo = "";
-		// for (String fila : datos) {
-		// personaInfo += fila + " ";
-		// }
-		// System.out.println(personaInfo+"\n");
-		// }
-		// }
-
-		// String excelFilePath = "JavaBooks.xls";
-		//
-		// try {
-		// FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
-		// Workbook workbook = WorkbookFactory.create(inputStream);
-		//
-		// Sheet sheet = workbook.getSheetAt(0);
-		//
-		// Object[][] bookData = {
-		// {"The Passionate Programmer", "Chad Fowler", 16},
-		// {"Software Craftmanship", "Pete McBreen", 26},
-		// {"The Art of Agile Development", "James Shore", 32},
-		// {"Continuous Delivery", "Jez Humble", 41},
-		// };
-		//
-		// int rowCount = sheet.getLastRowNum();
-		//
-		// for (Object[] aBook : bookData) {
-		// Row row = sheet.createRow(++rowCount);
-		//
-		// int columnCount = 0;
-		//
-		// Cell cell = row.createCell(columnCount);
-		// cell.setCellValue(rowCount);
-		//
-		// for (Object field : aBook) {
-		// cell = row.createCell(++columnCount);
-		// if (field instanceof String) {
-		// cell.setCellValue((String) field);
-		// } else if (field instanceof Integer) {
-		// cell.setCellValue((Integer) field);
-		// }
-		// }
-		//
-		// }
-		//
-		// inputStream.close();
-		//
-		// FileOutputStream outputStream = new FileOutputStream("JavaBooks.xls");
-		// workbook.write(outputStream);
-		// workbook.close();
-		// outputStream.close();
-		//
-		// } catch (IOException | EncryptedDocumentException
-		// | InvalidFormatException ex) {
-		// ex.printStackTrace();
-		// }
-
-		//
-		// HSSFWorkbook workbook = null;
-		// File file = new File(context.getExternalFilesDir(null), "Alta.xls");
-		// FileOutputStream fileOut = new FileOutputStream(file);
-		// if (file.exists()) {
-		// try {
-		// workbook = (HSSFWorkbook)WorkbookFactory.create(file);
-		// } catch (InvalidFormatException e) {
-		// e.printStackTrace();
-		// }
-		// HSSFSheet sheet = workbook.createSheet("ModificarDocumentos");
-		// } else{
-		// workbook = new HSSFWorkbook();
-		// HSSFSheet sheet = workbook.createSheet("AltaDocumentos");
-		// }
-		// workbook.write(fileOut);
-		// fileOut.close();
-		//
+		
 
 		// Creamos el libro de trabajo
 		XSSFWorkbook libro = new XSSFWorkbook();
